@@ -1,0 +1,120 @@
+.dollhouse-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  animation: fadeIn 0.6s ease forwards;
+  opacity: 0;
+  transition: transform 0.25s ease;
+  width: 150px;
+}
+
+.dollhouse-wrap:hover .house-svg {
+  filter: drop-shadow(0 8px 20px rgba(92,61,30,0.35));
+  transform: translateY(-6px);
+}
+
+.house-svg {
+  width: 150px;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.dollhouse-wrap.mayor {
+  width: 190px;
+  order: -1;
+}
+
+.dollhouse-wrap.mayor .house-svg {
+  width: 190px;
+}
+
+.dollhouse-wrap.private {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.dollhouse-wrap.private:hover .house-svg {
+  transform: none;
+  filter: none;
+}
+
+/* Badges */
+.badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.badge-mayor {
+  background: #c9943a;
+  color: white;
+  font-size: 0.7rem;
+}
+
+.badge-private {
+  background: #555;
+  color: white;
+}
+
+.badge-new {
+  background: #4a7c59;
+  color: white;
+}
+
+/* Nameplate */
+.nameplate {
+  background: rgba(255,255,255,0.85);
+  border-radius: 6px;
+  padding: 0.4rem 0.75rem;
+  text-align: center;
+  margin-top: 0.4rem;
+  border: 1px solid var(--cream-dark);
+  backdrop-filter: blur(4px);
+  max-width: 150px;
+}
+
+.nameplate-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--brown-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nameplate-title {
+  font-size: 0.68rem;
+  color: var(--brown-light);
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.visit-hint {
+  font-size: 0.68rem;
+  color: var(--gold);
+  font-weight: 600;
+  margin-top: 0.25rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.dollhouse-wrap:hover .visit-hint { opacity: 1; }
+
+@media (max-width: 600px) {
+  .dollhouse-wrap { width: 110px; }
+  .house-svg { width: 110px; }
+  .dollhouse-wrap.mayor { width: 140px; }
+  .dollhouse-wrap.mayor .house-svg { width: 140px; }
+}

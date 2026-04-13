@@ -1,0 +1,132 @@
+.dollhouse-interior {
+  background: linear-gradient(180deg, #e8f4f8 0%, #d4e8b0 100%);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: inset 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.interior-facade {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Roof */
+.facade-roof {
+  background: #4a3728;
+  height: 60px;
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  position: relative;
+  margin-bottom: -2px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.facade-chimney {
+  position: absolute;
+  right: 28%;
+  top: -20px;
+  width: 24px;
+  height: 40px;
+  background: #4a3728;
+  border-top: 4px solid #c9943a;
+}
+
+/* Walls */
+.facade-walls {
+  background: #f5e6d0;
+  border: 3px solid #c9943a;
+  border-bottom: none;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  min-height: 200px;
+  align-content: start;
+}
+
+/* Room windows */
+.room-window {
+  border-radius: 10px;
+  border: 2px solid rgba(92,61,30,0.15);
+  padding: 1.25rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.room-window:hover {
+  border-color: var(--brown-light);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(92,61,30,0.15);
+}
+
+.room-window.active {
+  border-color: var(--brown);
+  box-shadow: 0 0 0 3px rgba(92,61,30,0.2);
+}
+
+.window-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(255,220,100,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.window-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.window-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--brown-dark);
+}
+
+.no-rooms {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2rem;
+  font-style: italic;
+  color: var(--brown-light);
+}
+
+/* Ground floor */
+.facade-ground {
+  background: #8b7355;
+  height: 50px;
+  border: 3px solid #c9943a;
+  border-top: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.facade-path {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 50px;
+  background: #c8b060;
+}
+
+.facade-door {
+  font-size: 1.8rem;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 600px) {
+  .facade-walls {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .room-window { padding: 1rem 0.75rem; }
+}

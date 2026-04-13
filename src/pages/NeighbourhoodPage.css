@@ -1,0 +1,163 @@
+.neighbourhood-screen {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #c8e6f5 0%, #dff0d8 40%, #e8d5a3 100%);
+  padding-top: var(--nav-height);
+  overflow-x: hidden;
+}
+
+/* Sky */
+.sky {
+  position: fixed;
+  top: var(--nav-height); left: 0; right: 0;
+  height: 200px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cloud {
+  position: absolute;
+  font-size: 3rem;
+  opacity: 0.6;
+  color: white;
+  animation: float 6s ease infinite;
+}
+.cloud-1 { top: 20px; left: 10%; animation-delay: 0s; font-size: 2.5rem; }
+.cloud-2 { top: 40px; left: 55%; animation-delay: 2s; font-size: 3.5rem; }
+.cloud-3 { top: 10px; right: 15%; animation-delay: 4s; font-size: 2rem; }
+
+/* Header */
+.neighbourhood-header {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 3rem 1rem 1rem;
+}
+
+.neighbourhood-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  font-style: italic;
+  color: var(--brown-dark);
+  text-shadow: 0 2px 8px rgba(255,255,255,0.5);
+  margin-bottom: 0.5rem;
+}
+
+.neighbourhood-subtitle {
+  font-size: 1rem;
+  color: var(--brown-light);
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.search-wrap {
+  max-width: 380px;
+  margin: 0 auto 1.5rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.65rem 1.2rem;
+  border-radius: 30px;
+  border: 2px solid rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.85);
+  font-size: 0.9rem;
+  color: var(--text);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+.search-input:focus { outline: none; border-color: var(--gold); background: white; }
+
+.join-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255,255,255,0.7);
+  border-radius: 30px;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.9rem;
+  color: var(--brown);
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+}
+
+/* Street */
+.street-wrap {
+  position: relative;
+  z-index: 2;
+  padding: 2rem 1rem 0;
+}
+
+.street-label {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--brown-light);
+  margin-bottom: 1rem;
+}
+
+.street {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+  align-items: flex-end;
+}
+
+.street-loading {
+  text-align: center;
+  font-style: italic;
+  color: var(--brown-light);
+  padding: 3rem;
+}
+
+/* Road */
+.street-road {
+  background: #8b7355;
+  height: 50px;
+  position: relative;
+  margin-top: 0;
+}
+
+.road-line {
+  position: absolute;
+  top: 50%;
+  left: 0; right: 0;
+  height: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    #f0d080 0px, #f0d080 40px,
+    transparent 40px, transparent 80px
+  );
+}
+
+/* Empty plot */
+.empty-plot {
+  width: 140px;
+  height: 200px;
+  border: 2px dashed rgba(92,61,30,0.3);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.3);
+  animation: float 4s ease infinite;
+}
+
+.empty-plot-icon { font-size: 2rem; }
+.empty-plot-text {
+  font-size: 0.75rem;
+  color: var(--brown-light);
+  text-align: center;
+  line-height: 1.4;
+}
+
+@media (max-width: 600px) {
+  .neighbourhood-title { font-size: 2.2rem; }
+  .street { gap: 1rem; }
+}

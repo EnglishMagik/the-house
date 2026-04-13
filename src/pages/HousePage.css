@@ -1,0 +1,158 @@
+.house-screen {
+  min-height: 100vh;
+  background: var(--cream);
+  padding-top: var(--nav-height);
+}
+
+.house-loading,
+.house-not-found {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding-top: var(--nav-height);
+  font-style: italic;
+  color: var(--brown-light);
+  text-align: center;
+}
+
+.house-not-found h2 {
+  font-family: 'Playfair Display', serif;
+  color: var(--brown-dark);
+}
+
+/* Header */
+.house-header {
+  position: relative;
+  overflow: hidden;
+  min-height: 220px;
+}
+
+.house-header-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #e8d5b0, #d4c4a0, #c8b890);
+}
+
+.house-header-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.house-portrait {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid white;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  flex-shrink: 0;
+}
+
+.house-meta { flex: 1; }
+
+.house-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  color: var(--brown-dark);
+  margin-bottom: 0.3rem;
+}
+
+.house-tagline {
+  font-style: italic;
+  color: var(--brown-light);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.house-owner {
+  font-size: 0.88rem;
+  color: var(--brown);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mayor-badge {
+  background: var(--gold);
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+.edit-house-btn {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+}
+
+/* Interior */
+.house-interior {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.interior-label {
+  text-align: center;
+  font-style: italic;
+  color: var(--brown-light);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Room content */
+.room-content-area {
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  padding: 0 1.5rem;
+  animation: fadeIn 0.4s ease;
+}
+
+.room-content-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--cream-dark);
+}
+
+.room-content-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--brown-dark);
+}
+
+.room-close-btn {
+  background: transparent;
+  border: 1px solid var(--cream-dark);
+  color: var(--brown-light);
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+.room-close-btn:hover { background: var(--cream-dark); color: var(--brown); }
+
+/* Back to street */
+.back-to-street {
+  text-align: center;
+  padding: 2rem;
+}
+
+@media (max-width: 600px) {
+  .house-header-content { padding: 1.5rem 1rem; gap: 1rem; }
+  .house-portrait { width: 70px; height: 70px; }
+}
