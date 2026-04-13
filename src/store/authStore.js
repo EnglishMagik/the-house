@@ -34,7 +34,8 @@ export const useAuthStore = create((set, get) => ({
     if (data) set({ profile: data })
   },
 
-  signUp: async (email, password, username, fullName) => {
+  // 1. Update the function signature to accept houseStyle
+  signUp: async (email, password, username, fullName, houseStyle) => {
     const { data, error } = await supabase.auth.signUp({ email, password })
     if (error) throw error
 
@@ -51,7 +52,7 @@ export const useAuthStore = create((set, get) => ({
     const { data: house, error: houseError } = await supabase.from('houses').insert({
       user_id: data.user.id,
       title: `${fullName}'s Book of Life`,
-      style: 'victorian',
+      style: houseStyle || 'victorian', // 2. Use the selected style here
       is_public: true,
     }).select().single()
     if (houseError) throw houseError
