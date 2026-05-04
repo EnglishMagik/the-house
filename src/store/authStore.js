@@ -7,11 +7,15 @@ export const useAuthStore = create((set, get) => ({
   loading: true,
 
   init: async () => {
-    const { data: { session } } = await supabase.auth.getSession()
-    if (session?.user) {
-      await get().fetchProfile(session.user.id)
-      set({ user: session.user, loading: false })
-    } else {
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (session?.user) {
+        set({ user: session.user })
+        await get().fetchProfile(session.user.id)
+      }
+    } catch (e) {
+      console.error('Init error:', e)
+    } finally {
       set({ loading: false })
     }
 
@@ -26,16 +30,19 @@ export const useAuthStore = create((set, get) => ({
   },
 
   fetchProfile: async (userId) => {
-    const { data } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single()
-    if (data) set({ profile: data })
+    try {
+      const { data } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single()
+      if (data) set({ profile: data })
+    } catch (e) {
+      console.error('fetchProfile error:', e)
+    }
   },
 
   signUp: async (email, password, username, fullName, houseStyle) => {
-    // username + fullName go as metadata — the DB trigger creates the profile automatically
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -68,15 +75,3 @@ export const useAuthStore = create((set, get) => ({
 
     return data
   },
-
-  signIn: async (email, password) => {
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
-    if (error) throw error
-    return data
-  },
-
-  signOut: async () => {
-    await supabase.auth.signOut()
-    set({ user: null, profile: null })
-  },
-}))
