@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { supabase } from '../utils/supabase'
+import { supabase } from './supabase'
 
 export const useAuthStore = create((set, get) => ({
   user: null,
@@ -34,25 +34,25 @@ export const useAuthStore = create((set, get) => ({
     if (data) set({ profile: data })
   },
 
-  // 1. Update the function signature to accept houseStyle
   signUp: async (email, password, username, fullName, houseStyle) => {
-    const { data, error } = await supabase.auth.signUp({ email, password })
-    if (error) throw error
-
-    // Create profile
-    const { error: profileError } = await supabase.from('profiles').insert({
-      id: data.user.id,
-      username,
-      full_name: fullName,
-      is_admin: false,
+    // username + fullName go as metadata — the DB trigger creates the profile automatically
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          username,
+          full_name: fullName,
+        }
+      }
     })
-    if (profileError) throw profileError
+    if (error) throw error
 
     // Create default house
     const { data: house, error: houseError } = await supabase.from('houses').insert({
       user_id: data.user.id,
       title: `${fullName}'s Book of Life`,
-      style: houseStyle || 'victorian', // 2. Use the selected style here
+      style: houseStyle || 'victorian',
       is_public: true,
     }).select().single()
     if (houseError) throw houseError
