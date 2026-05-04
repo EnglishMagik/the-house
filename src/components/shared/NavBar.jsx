@@ -9,12 +9,12 @@ export default function NavBar() {
 
   const handleSignOut = async () => {
     await signOut()
-    navigate('/')
+    navigate('/auth')
   }
 
   return (
     <nav className="navbar">
-      <Link to="/" className="navbar-brand">
+     <Link to={user ? "/my-house" : "/"} className="navbar-brand">
         <span className="brand-icon">🏠</span>
         <span className="brand-text">the House</span>
       </Link>
