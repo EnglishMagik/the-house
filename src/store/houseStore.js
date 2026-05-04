@@ -13,7 +13,6 @@ export const useHouseStore = create((set, get) => ({
     setTimeout(() => set({ toast: '' }), 3000)
   },
 
-  // ── Neighbourhood ──────────────────────
   fetchAllHouses: async () => {
     set({ loading: true })
     const { data } = await supabase
@@ -24,14 +23,13 @@ export const useHouseStore = create((set, get) => ({
     set({ houses: data || [], loading: false })
   },
 
-  // ── Single house ───────────────────────
   fetchHouseByUsername: async (username) => {
     set({ loading: true })
     const { data: profile } = await supabase
       .from('profiles')
       .select('*')
       .eq('username', username)
-      .single()
+      .maybeSingle()
 
     if (!profile) { set({ loading: false }); return null }
 
@@ -39,7 +37,7 @@ export const useHouseStore = create((set, get) => ({
       .from('houses')
       .select('*')
       .eq('user_id', profile.id)
-      .single()
+      .maybeSingle()
 
     if (house) {
       const { data: rooms } = await supabase
@@ -59,7 +57,7 @@ export const useHouseStore = create((set, get) => ({
       .from('houses')
       .select('*')
       .eq('user_id', userId)
-      .single()
+      .maybeSingle()
 
     if (house) {
       const { data: rooms } = await supabase
@@ -73,7 +71,6 @@ export const useHouseStore = create((set, get) => ({
     return null
   },
 
-  // ── House updates ──────────────────────
   updateHouse: async (houseId, updates) => {
     const { error } = await supabase
       .from('houses')
@@ -85,7 +82,6 @@ export const useHouseStore = create((set, get) => ({
     }
   },
 
-  // ── Room CRUD ──────────────────────────
   addRoom: async (houseId, name, roomType) => {
     const pos = get().rooms.length
     const { data, error } = await supabase

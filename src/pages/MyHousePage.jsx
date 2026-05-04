@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import { useHouseStore } from '../store/houseStore'
+import keyImg from '../assets/gary_book_key.png'
 import './MyHousePage.css'
 
 const ROOM_TYPES = [
@@ -81,6 +82,7 @@ export default function MyHousePage() {
 
   return (
     <main className="myhome-screen">
+
       {/* Kitchen header */}
       <div className="kitchen-header">
         <div className="kitchen-icon">🍳</div>
@@ -91,6 +93,15 @@ export default function MyHousePage() {
         <button className="btn btn-secondary view-house-btn" onClick={() => navigate(`/${profile?.username}`)}>
           View My House →
         </button>
+      </div>
+
+      {/* KEY ENTRANCE BANNER */}
+      <div className="key-banner" onClick={() => navigate(`/${profile?.username}`)}>
+        <img src={keyImg} alt="Enter your house" className="key-img" />
+        <div className="key-text">
+          <span className="key-title">Your house is ready</span>
+          <span className="key-sub">Click the key to enter 🗝️</span>
+        </div>
       </div>
 
       {/* Share bar */}
@@ -152,7 +163,6 @@ export default function MyHousePage() {
               ))}
             </div>
 
-            {/* Add room */}
             {showAddRoom ? (
               <div className="add-room-form">
                 <h3>Add a New Room</h3>
