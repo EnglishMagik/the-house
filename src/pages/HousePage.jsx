@@ -31,7 +31,7 @@ export default function HousePage() {
     <div className="house-not-found">
       <div style={{ fontSize: '3rem' }}>🚪</div>
       <h2>No one lives here yet</h2>
-      <p>This address doesn't exist in the House.</p>
+      <p>This address doesn't exist on Home.</p>
       <button className="btn btn-primary" onClick={() => navigate('/')}>Back to the Street</button>
     </div>
   )
@@ -50,7 +50,7 @@ export default function HousePage() {
             {currentHouse.tagline && <p className="house-tagline">{currentHouse.tagline}</p>}
             <div className="house-owner">
               🏠 {currentHouse.profile?.full_name || username}
-              {username === 'gary' && <span className="mayor-badge">👑 Mayor</span>}
+              {currentHouse.profile?.is_admin && <span className="mayor-badge">👑 Mayor</span>}
             </div>
           </div>
           {isOwner && (

@@ -51,7 +51,7 @@ export default function AuthPage() {
       <div className="auth-card">
         <div className="auth-header">
           <div className="auth-icon">🏠</div>
-          <h1>{mode === 'signin' ? 'Welcome back' : 'Move into the House'}</h1>
+          <h1>{mode === 'signin' ? 'Welcome back' : 'Move into Home'}</h1>
           <p>{mode === 'signin' ? 'Open your front door' : 'Create your home'}</p>
         </div>
 
@@ -63,7 +63,7 @@ export default function AuthPage() {
                 <input className="input" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="e.g. Gary Wild" required />
               </div>
               <div className="form-field">
-                <label>Username <span className="hint">(your address: thehouse.com/username)</span></label>
+                <label>Username <span className="hint">(your address on Home: /username)</span></label>
                 <input className="input" value={username} onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/\s/g,''))} placeholder="e.g. garywild" required />
               </div>
             </>
@@ -81,7 +81,7 @@ export default function AuthPage() {
 
           {mode === 'signup' && (
             <div className="form-field">
-              <label>Choose your house style</label>
+              <label>Choose your home style</label>
               <div className="style-grid">
                 {STYLES.map((s) => (
                   <div
@@ -101,15 +101,15 @@ export default function AuthPage() {
           {error && <div className="auth-error">⚠ {error}</div>}
 
           <button className="btn btn-primary auth-submit" type="submit" disabled={loading}>
-            {loading ? '…' : mode === 'signin' ? 'Open the Door' : 'Build My House'}
+            {loading ? '…' : mode === 'signin' ? 'Open the Door' : 'Build My Home'}
           </button>
         </form>
 
         <div className="auth-switch">
           {mode === 'signin' ? (
-            <span>New here? <button onClick={() => setMode('signup')}>Create your house</button></span>
+            <span>New here? <button onClick={() => setMode('signup')}>Create your home</button></span>
           ) : (
-            <span>Already have a house? <button onClick={() => setMode('signin')}>Sign in</button></span>
+            <span>Already have a home? <button onClick={() => setMode('signin')}>Sign in</button></span>
           )}
         </div>
       </div>

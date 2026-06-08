@@ -55,7 +55,7 @@ export default function DollhouseView({ rooms, houseStyle, onRoomClick, activeRo
 
           {visibleRooms.length === 0 && (
             <div className="no-rooms">
-              <p>This house has no rooms yet.</p>
+              <p>This home has no rooms yet.</p>
             </div>
           )}
         </div>

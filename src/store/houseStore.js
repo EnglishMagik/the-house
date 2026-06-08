@@ -89,10 +89,17 @@ export const useHouseStore = create((set, get) => ({
       .insert({ house_id: houseId, name, room_type: roomType, position: pos })
       .select()
       .single()
-    if (!error && data) {
-      set((s) => ({ rooms: [...s.rooms, data] }))
-      get().showToast(`Room "${name}" added!`)
+    if (error) {
+      get().showToast(`Error: ${error.message}`)
+      console.error('addRoom error:', error)
+      return false
     }
+    if (data) {
+      set((s) => ({ rooms: [...s.rooms, data] }))
+      get().showToast(`Room "${name}" added! 🚪`)
+      return true
+    }
+    return false
   },
 
   updateRoom: async (roomId, updates) => {

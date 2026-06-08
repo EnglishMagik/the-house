@@ -27,7 +27,7 @@ export default function NeighbourhoodPage() {
 
       {/* Header */}
       <div className="neighbourhood-header">
-        <h1 className="neighbourhood-title">the House</h1>
+        <h1 className="neighbourhood-title">Home</h1>
         <p className="neighbourhood-subtitle">
           Every life, a story. Every story, a home.
         </p>
@@ -35,7 +35,7 @@ export default function NeighbourhoodPage() {
         <div className="search-wrap">
           <input
             className="search-input"
-            placeholder="🔍 Find someone's house…"
+            placeholder="🔍 Find someone's home…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -45,7 +45,7 @@ export default function NeighbourhoodPage() {
           <div className="join-banner">
             <span>Ready to move in?</span>
             <a href="/auth?mode=signup" className="btn btn-gold">
-              Get Your House
+              Get Your Home
             </a>
           </div>
         )}
@@ -64,7 +64,7 @@ export default function NeighbourhoodPage() {
                 key={house.id}
                 house={house}
                 index={i}
-                isMayor={house.profiles?.username === 'gary'}
+                isMayor={house.profiles?.is_admin === true}
               />
             ))}
 
@@ -72,7 +72,7 @@ export default function NeighbourhoodPage() {
             {!user && (
               <div className="empty-plot">
                 <div className="empty-plot-icon">🏗</div>
-                <div className="empty-plot-text">Your house<br />could be here</div>
+                <div className="empty-plot-text">Your home<br />could be here</div>
                 <a href="/auth?mode=signup" className="btn btn-primary" style={{ fontSize: '0.75rem', padding: '0.4rem 0.9rem' }}>
                   Move In
                 </a>

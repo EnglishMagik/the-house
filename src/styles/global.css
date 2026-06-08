@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════
-   the House — Global Styles
+   Home — Global Styles
    Warm, light, cosy library feel
 ═══════════════════════════════════ */
 
@@ -202,4 +202,11 @@ textarea.input { resize: vertical; min-height: 100px; line-height: 1.6; }
 /* ── Responsive ─────────────────── */
 @media (max-width: 640px) {
   .page-wrap { padding: calc(var(--nav-height) + 1rem) 1rem 3rem; }
+}
+
+@media (max-width: 600px) {
+  /* Lift toast above the bottom tab bar */
+  .toast {
+    bottom: calc(60px + env(safe-area-inset-bottom, 0px) + 0.75rem);
+  }
 }

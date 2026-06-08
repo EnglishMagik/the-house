@@ -9,6 +9,7 @@ import MyHousePage from './pages/MyHousePage'
 import AuthPage from './pages/AuthPage'
 import AdminPage from './pages/AdminPage'
 import LoadingScreen from './components/shared/LoadingScreen'
+import BottomTabBar from './components/shared/BottomTabBar'
 
 export default function App() {
   const { init, loading } = useAuthStore()
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="*"            element={<Navigate to="/" replace />} />
       </Routes>
       <Toast />
+      <BottomTabBar />
     </>
   )
 }

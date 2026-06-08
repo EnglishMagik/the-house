@@ -39,7 +39,7 @@ export default function AdminPage() {
     <main className="admin-screen">
       <div className="admin-header">
         <h1>🏛 Admin Panel</h1>
-        <p>Manage residents of the House</p>
+        <p>Manage residents of Home</p>
       </div>
 
       <div className="admin-tabs">

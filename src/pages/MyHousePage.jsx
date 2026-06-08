@@ -50,9 +50,11 @@ export default function MyHousePage() {
 
   const handleAddRoom = async () => {
     if (!newRoomName.trim()) { showToast('Enter a room name first.'); return }
-    await addRoom(currentHouse.id, newRoomName, newRoomType)
-    setNewRoomName('')
-    setShowAddRoom(false)
+    const ok = await addRoom(currentHouse.id, newRoomName, newRoomType)
+    if (ok) {
+      setNewRoomName('')
+      setShowAddRoom(false)
+    }
   }
 
   const handleSaveHouse = async () => {
@@ -76,7 +78,7 @@ export default function MyHousePage() {
 
   if (!currentHouse) return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 'var(--nav-height)' }}>
-      <p style={{ fontStyle: 'italic', color: 'var(--brown-light)' }}>Loading your house…</p>
+      <p style={{ fontStyle: 'italic', color: 'var(--brown-light)' }}>Loading your home…</p>
     </div>
   )
 
@@ -88,18 +90,18 @@ export default function MyHousePage() {
         <div className="kitchen-icon">🍳</div>
         <div className="kitchen-meta">
           <h1>The Kitchen</h1>
-          <p>This is where you mix it up — manage your house, rooms, and content.</p>
+          <p>This is where you mix it up — manage your home, rooms, and content.</p>
         </div>
         <button className="btn btn-secondary view-house-btn" onClick={() => navigate(`/${profile?.username}`)}>
-          View My House →
+          View My Home →
         </button>
       </div>
 
       {/* KEY ENTRANCE BANNER */}
       <div className="key-banner" onClick={() => navigate(`/${profile?.username}`)}>
-        <img src={keyImg} alt="Enter your house" className="key-img" />
+        <img src={keyImg} alt="Enter your home" className="key-img" />
         <div className="key-text">
-          <span className="key-title">Your house is ready</span>
+          <span className="key-title">Your home is ready</span>
           <span className="key-sub">Click the key to enter 🗝️</span>
         </div>
       </div>
@@ -217,7 +219,7 @@ export default function MyHousePage() {
         {activeTab === 'style' && (
           <div className="style-tab">
             <p style={{ marginBottom: '1.25rem', color: 'var(--brown-light)', fontStyle: 'italic' }}>
-              Choose your house style. You can change it any time.
+              Choose your home style. You can change it any time.
             </p>
             <div className="style-picker">
               {HOUSE_STYLES.map((s) => (

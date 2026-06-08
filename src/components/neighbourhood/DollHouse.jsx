@@ -41,7 +41,7 @@ export default function DollHouse({ house, index, isMayor }) {
   const name = house.profiles?.full_name || username
 
   const handleClick = () => {
-    if (isPublic) navigate(`/${username}`)
+    if (isPublic && username) navigate(`/${username}`)
   }
 
   return (
@@ -49,7 +49,7 @@ export default function DollHouse({ house, index, isMayor }) {
       className={`dollhouse-wrap ${isMayor ? 'mayor' : ''} ${!isPublic ? 'private' : ''}`}
       onClick={handleClick}
       style={{ animationDelay: `${index * 0.1}s` }}
-      title={isPublic ? `Visit ${name}'s house` : 'Private house'}
+      title={isPublic ? `Visit ${name}'s home` : 'Private home'}
     >
       {/* Badges */}
       {isMayor && <div className="badge badge-mayor">👑 Mayor</div>}
