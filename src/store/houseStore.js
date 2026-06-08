@@ -82,7 +82,7 @@ export const useHouseStore = create((set, get) => ({
     }
   },
 
-  addRoom: async (houseId, name, roomType, content) => {
+  addRoom: async (houseId, name, roomType, content = {}) => {
     const pos = get().rooms.length
     const { data, error } = await supabase
       .from('rooms')
