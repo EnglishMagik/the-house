@@ -13,10 +13,19 @@ const ROOM_TYPES = [
   { type: 'instagram', label: 'Instagram',  icon: '📸', desc: 'Your Instagram' },
   { type: 'tiktok',    label: 'TikTok',     icon: '🎵', desc: 'Your TikTok' },
   { type: 'youtube',   label: 'YouTube',    icon: '▶',  desc: 'Your YouTube channel' },
-  { type: 'gallery',   label: 'Gallery',    icon: '🖼',  desc: 'Photo gallery' },
   { type: 'links',     label: 'Links',      icon: '🔗', desc: 'Link collection' },
   { type: 'custom',    label: 'Custom',     icon: '✦',  desc: 'Anything you like' },
 ]
+
+const URL_PLACEHOLDERS = {
+  video:     'https://youtube.com/yourchannel',
+  audio:     'https://soundcloud.com/yourname',
+  facebook:  'https://facebook.com/yourname',
+  instagram: 'https://instagram.com/yourname',
+  tiktok:    'https://tiktok.com/@yourname',
+  youtube:   'https://youtube.com/@yourchannel',
+  links:     'https://linktr.ee/yourname',
+}
 
 const HOUSE_STYLES = [
   { id: 'victorian',  label: 'Victorian',  emoji: '🏚' },
@@ -33,6 +42,7 @@ export default function MyHousePage() {
   const [showAddRoom, setShowAddRoom] = useState(false)
   const [newRoomType, setNewRoomType] = useState('custom')
   const [newRoomName, setNewRoomName] = useState('')
+  const [newRoomUrl, setNewRoomUrl] = useState('')
   const [editingHouse, setEditingHouse] = useState(false)
   const [houseTitle, setHouseTitle] = useState('')
   const [houseTagline, setHouseTagline] = useState('')
@@ -50,10 +60,11 @@ export default function MyHousePage() {
 
   const handleAddRoom = async () => {
     if (!newRoomName.trim()) { showToast('Enter a room name first.'); return }
-    const ok = await addRoom(currentHouse.id, newRoomName, newRoomType)
+    const ok = await addRoom(currentHouse.id, newRoomName, newRoomType, { url: newRoomUrl })
     if (ok) {
       setNewRoomName('')
-      setShowAddRoom(false)
+      setNewRoomUrl('')
+      setNewRoomType('custom')
     }
   }
 
@@ -173,7 +184,7 @@ export default function MyHousePage() {
                     <div
                       key={rt.type}
                       className={`room-type-option ${newRoomType === rt.type ? 'selected' : ''}`}
-                      onClick={() => { setNewRoomType(rt.type); setNewRoomName(rt.label) }}
+                      onClick={() => { setNewRoomType(rt.type); setNewRoomName(rt.label); setNewRoomUrl('') }}
                     >
                       <div>{rt.icon}</div>
                       <div className="rt-label">{rt.label}</div>
@@ -185,8 +196,17 @@ export default function MyHousePage() {
                   value={newRoomName}
                   onChange={(e) => setNewRoomName(e.target.value)}
                   placeholder="Room name"
-                  style={{ margin: '1rem 0 0.75rem' }}
+                  style={{ margin: '1rem 0 0.5rem' }}
                 />
+                {!['story', 'custom'].includes(newRoomType) && (
+                  <input
+                    className="input"
+                    value={newRoomUrl}
+                    onChange={(e) => setNewRoomUrl(e.target.value)}
+                    placeholder={URL_PLACEHOLDERS[newRoomType] || 'https://'}
+                    style={{ marginBottom: '0.75rem' }}
+                  />
+                )}
                 <div style={{ display: 'flex', gap: '0.75rem' }}>
                   <button className="btn btn-primary" onClick={handleAddRoom}>Add Room</button>
                   <button className="btn btn-secondary" onClick={() => setShowAddRoom(false)}>Cancel</button>

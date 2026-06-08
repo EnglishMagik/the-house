@@ -9,9 +9,24 @@ import './HousePage.css'
 export default function HousePage() {
   const { username } = useParams()
   const navigate = useNavigate()
-  const { currentHouse, rooms, fetchHouseByUsername, loading } = useHouseStore()
+  const { currentHouse, rooms, fetchHouseByUsername, loading, showToast } = useHouseStore()
   const { profile } = useAuthStore()
   const [activeRoom, setActiveRoom] = useState(null)
+
+  const URL_ROOM_TYPES = new Set(['instagram', 'facebook', 'tiktok', 'youtube', 'audio', 'video', 'links', 'custom'])
+
+  const handleRoomClick = (room) => {
+    if (URL_ROOM_TYPES.has(room.room_type)) {
+      const url = room.content?.url
+      if (url) {
+        window.open(url, '_blank', 'noopener,noreferrer')
+      } else {
+        showToast('Coming soon!')
+      }
+    } else {
+      setActiveRoom(room)
+    }
+  }
 
   const isOwner = profile?.username === username
 
@@ -68,7 +83,7 @@ export default function HousePage() {
         <DollhouseView
           rooms={rooms}
           houseStyle={currentHouse.style}
-          onRoomClick={setActiveRoom}
+          onRoomClick={handleRoomClick}
           activeRoom={activeRoom}
         />
       </div>

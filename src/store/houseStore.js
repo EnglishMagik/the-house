@@ -82,11 +82,11 @@ export const useHouseStore = create((set, get) => ({
     }
   },
 
-  addRoom: async (houseId, name, roomType) => {
+  addRoom: async (houseId, name, roomType, content) => {
     const pos = get().rooms.length
     const { data, error } = await supabase
       .from('rooms')
-      .insert({ house_id: houseId, name, room_type: roomType, position: pos })
+      .insert({ house_id: houseId, name, room_type: roomType, position: pos, content })
       .select()
       .single()
     if (error) {
