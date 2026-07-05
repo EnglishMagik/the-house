@@ -9,7 +9,7 @@ import './HousePage.css'
 export default function HousePage() {
   const { username } = useParams()
   const navigate = useNavigate()
-  const { currentHouse, rooms, fetchHouseByUsername, loading, showToast } = useHouseStore()
+  const { currentHouse, rooms, fetchHouseByUsername, loading, fetchError, showToast } = useHouseStore()
   const { profile } = useAuthStore()
   const [activeRoom, setActiveRoom] = useState(null)
 
@@ -39,6 +39,15 @@ export default function HousePage() {
     <div className="house-loading">
       <div style={{ fontSize: '3rem', animation: 'float 2s ease infinite' }}>🏠</div>
       <p>Knocking on the door…</p>
+    </div>
+  )
+
+  if (fetchError === 'timeout') return (
+    <div className="house-not-found">
+      <div style={{ fontSize: '3rem' }}>⏱</div>
+      <h2>Taking too long…</h2>
+      <p>Couldn't load this house. Check your connection and try again.</p>
+      <button className="btn btn-primary" onClick={() => fetchHouseByUsername(username)}>Try Again</button>
     </div>
   )
 

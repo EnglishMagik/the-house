@@ -7,6 +7,7 @@ export const useHouseStore = create((set, get) => ({
   rooms: [],
   loading: false,
   toast: '',
+  fetchError: null,
 
   showToast: (msg) => {
     set({ toast: msg })
@@ -24,30 +25,58 @@ export const useHouseStore = create((set, get) => ({
   },
 
   fetchHouseByUsername: async (username) => {
-    set({ loading: true })
+    set({ loading: true, fetchError: null })
+    console.log('[fetchHouseByUsername] start:', username)
+    let cancelled = false
+
+    const timeoutId = setTimeout(() => {
+      console.log('[fetchHouseByUsername] timed out after 5s')
+      cancelled = true
+      set({ loading: false, fetchError: 'timeout' })
+    }, 5000)
+
+    console.log('[fetchHouseByUsername] querying profile...')
     const { data: profile } = await supabase
       .from('profiles')
       .select('*')
       .eq('username', username)
       .maybeSingle()
 
-    if (!profile) { set({ loading: false }); return null }
+    if (cancelled) return null
+    console.log('[fetchHouseByUsername] profile result:', profile)
 
+    if (!profile) {
+      clearTimeout(timeoutId)
+      set({ loading: false })
+      return null
+    }
+
+    console.log('[fetchHouseByUsername] querying house...')
     const { data: house } = await supabase
       .from('houses')
       .select('*')
       .eq('user_id', profile.id)
       .maybeSingle()
 
+    if (cancelled) return null
+    console.log('[fetchHouseByUsername] house result:', house)
+
     if (house) {
+      console.log('[fetchHouseByUsername] querying rooms...')
       const { data: rooms } = await supabase
         .from('rooms')
         .select('*')
         .eq('house_id', house.id)
         .order('position')
+
+      if (cancelled) return null
+      console.log('[fetchHouseByUsername] rooms result:', rooms)
+      clearTimeout(timeoutId)
       set({ currentHouse: { ...house, profile }, rooms: rooms || [], loading: false })
       return house
     }
+
+    clearTimeout(timeoutId)
     set({ loading: false })
     return null
   },
