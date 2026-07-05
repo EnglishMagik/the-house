@@ -16,13 +16,13 @@ export default function NavBar() {
     <nav className="navbar">
      <Link to={user ? "/my-house" : "/"} className="navbar-brand">
         <span className="brand-icon">🏠</span>
-        <span className="brand-text">My House</span>
+        <span className="brand-text">Home</span>
       </Link>
 
       <div className="navbar-right">
         {user ? (
           <>
-            <Link to="/my-house" className="nav-link">My Home</Link>
+            <Link to="/my-house" className="nav-link">My House</Link>
             {profile?.is_admin && <Link to="/admin" className="nav-link">Admin</Link>}
             <button className="nav-btn" onClick={handleSignOut}>Leave</button>
           </>
