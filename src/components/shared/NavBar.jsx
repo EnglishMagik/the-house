@@ -16,7 +16,7 @@ export default function NavBar() {
     <nav className="navbar">
      <Link to={user ? "/my-house" : "/"} className="navbar-brand">
         <span className="brand-icon">🏠</span>
-        <span className="brand-text">Home</span>
+        <span className="brand-text">My House</span>
       </Link>
 
       <div className="navbar-right">
