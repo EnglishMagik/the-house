@@ -7,16 +7,33 @@ export const useAuthStore = create((set, get) => ({
   loading: true,
 
   init: async () => {
+    console.log('[init] start')
+    let cancelled = false
+
+    const timeoutId = setTimeout(() => {
+      console.log('[init] timed out after 5s')
+      cancelled = true
+      set({ user: null, profile: null, loading: false })
+    }, 5000)
+
     try {
+      console.log('[init] checking session...')
       const { data: { session } } = await supabase.auth.getSession()
+      console.log('[init] session result:', session)
+      if (cancelled) return
+
       if (session?.user) {
         set({ user: session.user })
+        console.log('[init] fetching profile...')
         await get().fetchProfile(session.user.id)
+        console.log('[init] profile fetch complete')
+        if (cancelled) return
       }
     } catch (e) {
       console.error('Init error:', e)
     } finally {
-      set({ loading: false })
+      clearTimeout(timeoutId)
+      if (!cancelled) set({ loading: false })
     }
 
     supabase.auth.onAuthStateChange(async (_event, session) => {
